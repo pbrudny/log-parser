@@ -3,7 +3,7 @@ require_relative '../lib/display'
 
 describe LogParser::Display do
   subject do
-    LogParser::Display.new('fixtures/webserver.log')
+    LogParser::Display.new('spec/fixtures/webserver.log')
   end
 
   describe '#total_views' do
