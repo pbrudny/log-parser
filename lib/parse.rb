@@ -18,27 +18,27 @@ module LogParser
       @results
     end
 
-    def add_ip(url, ip)
-      if @results[url].nil?
-        @results[url] = { total: 1, uniq: 1, values: [ip] }
-      else
-        result = @results[url]
-        exists = result[:values].include?(ip)
-
-        @results[url] = {
-          total: result[:total] + 1,
-          uniq: exists ?  result[:uniq] : result[:uniq] + 1,
-          values: exists ? result[:values] : result[:values] << ip
-        }
-      end
-    end
-
     private
 
     attr_reader :file_path, :results
 
     def valid?(line, line_number)
       Validate.new(line, line_number).call
+    end
+
+    def add_ip(url, ip)
+      @results[url] = { total: 0, uniq: 0, values: [] } if @results[url].nil?
+
+      exists = @results[url][:values].include?(ip)
+      @results[url] = new_results(@results[url], ip, exists)
+    end
+
+    def new_results(result, ip, exists)
+      {
+        total: result[:total] + 1,
+        uniq: exists ? result[:uniq] : result[:uniq] + 1,
+        values: exists ? result[:values] : result[:values] << ip
+      }
     end
   end
 end
