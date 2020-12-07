@@ -11,12 +11,17 @@ module LogParser
       @parsed ||= Parse.new(@file_path).call
     end
 
+    def parsed_keys
+      @parsed_keys ||= parsed.keys
+    end
+
     def total_views
-      parsed
+      parsed.sort_by { |key, value| value[:total] }
+        # .map { |result| "#{result[:total]}"}
     end
 
     def uniq_views
-      parsed.total_views
+      parsed.sort_by { |key, value| value[:uniq] }
     end
   end
 end
