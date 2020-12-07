@@ -12,7 +12,6 @@ module LogParser
     end
 
     def total_views
-      # parsed.total_views
       parsed
     end
 
