@@ -1,8 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'minitest'
 gem 'bundler'
-gem 'minitest-reporters'
 
-gem 'rubocop'
-gem 'pry'
+group :development do
+  gem 'rubocop'
+  gem 'pry'
+end
+
+group :test do
+  gem 'rspec'
+end
