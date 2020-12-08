@@ -6,15 +6,11 @@ describe LogParser::Validate do
 
   describe '#call' do
     context 'valid line with the main page' do
-      it do
-        expect(subject.new('/home 184.123.665.067', 3).call).to be_truthy
-      end
+      it { expect(subject.new('/home 184.123.665.067', 3).call).to be_truthy }
     end
 
     context 'valid line with the sub page' do
-      it do
-        expect(subject.new('/help_page/1 126.318.035.038', 10).call).to be_truthy
-      end
+      it { expect(subject.new('/help_page/1 126.318.035.038', 10).call).to be_truthy }
     end
 
     context 'invalid line' do
@@ -30,7 +26,10 @@ describe LogParser::Validate do
 
       it 'raises error for broken url' do
         expect { subject.new('\elp_page///1 126.318.035.038', 5).call }
-          .to raise_error(LogParser::InvalidLogs, 'Wrong url address in line: 5')
+          .to raise_error(
+            LogParser::InvalidLogs,
+            'Wrong url address in line: 5'
+          )
       end
 
       it 'raises error for broken ip' do

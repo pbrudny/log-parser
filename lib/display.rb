@@ -1,4 +1,3 @@
-require 'pry'
 require_relative '../lib/parse'
 
 module LogParser
@@ -7,21 +6,31 @@ module LogParser
       @file_path = file_path
     end
 
-    def parsed
-      @parsed ||= Parse.new(@file_path).call
-    end
-
-    def parsed_keys
-      @parsed_keys ||= parsed.keys
-    end
-
     def total_views
-      parsed.sort_by { |key, value| value[:total] }
-        # .map { |result| "#{result[:total]}"}
+      display(:total, 'visit')
     end
 
     def uniq_views
-      parsed.sort_by { |key, value| value[:uniq] }
+      display(:uniq, 'unique view')
+    end
+
+    private
+
+    def pluralize(base_word, number)
+      number == 1 ? base_word : base_word + 's'
+    end
+
+    def display(field, label)
+      parsed
+        .sort_by { |_, value| -value[field] }
+        .map { |x| "#{x[0]} #{x[1][field]} " + pluralize(label, x[1][field]) }
+        .join("\n")
+    rescue LogParser::InvalidLogs => e
+      "Error: #{e.message}"
+    end
+
+    def parsed
+      @parsed ||= Parse.new(@file_path).call
     end
   end
 end

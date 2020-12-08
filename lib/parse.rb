@@ -1,4 +1,3 @@
-require 'pry'
 require_relative '../lib/validate'
 
 module LogParser
@@ -9,8 +8,8 @@ module LogParser
     end
 
     def call
-      File.open(file_path, 'r').each_with_index do |line, line_number|
-        return unless valid?(line, line_number)
+      File.open(file_path, 'r').each_with_index do |line, index|
+        break unless valid?(line, index + 1)
 
         url, ip = line.split
         add_ip(url, ip)

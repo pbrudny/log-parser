@@ -1,5 +1,3 @@
-require 'pry'
-
 module LogParser
   class InvalidLogs < StandardError; end
 
@@ -25,13 +23,13 @@ module LogParser
     end
 
     def valid_url?
-      return true if url && url.match(/^[^\/]+\/[^\/].*$|^\/[^\/].*$/)
+      return true if url&.match(/^[^\/]+\/[^\/].*$|^\/[^\/].*$/)
 
       raise InvalidLogs, "Wrong url address in line: #{line_number}"
     end
 
     def valid_ip?
-      return true if ip && ip.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/)
+      return true if ip&.match(/^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$/)
 
       raise InvalidLogs, "Wrong IP address in line: #{line_number}"
     end

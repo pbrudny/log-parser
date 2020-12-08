@@ -2,22 +2,14 @@ require_relative 'spec_helper'
 require_relative '../lib/display'
 
 describe LogParser::Parse do
-  context 'when empty file'do
-    let(:file_path) { 'spec/fixtures/empty.log' }
-
-    it do
-      expect { LogParser::Parse.new(file_path).call }
-        .to raise_error(LogParser::InvalidLogs)
-    end
+  context 'when empty file' do
+    subject { LogParser::Parse.new('spec/fixtures/empty.log') }
+    it { expect { subject.call }.to raise_error(LogParser::InvalidLogs) }
   end
 
-  context 'when broken'do
-    let(:file_path) { 'spec/fixtures/broken.log' }
-
-    it do
-      expect { LogParser::Parse.new(file_path).call }
-        .to raise_error(LogParser::InvalidLogs)
-    end
+  context 'when broken' do
+    subject { LogParser::Parse.new('spec/fixtures/broken.log') }
+    it { expect { subject.call }.to raise_error(LogParser::InvalidLogs) }
   end
 
   context 'when single line' do
