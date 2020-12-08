@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'spec_helper'
 require_relative '../lib/display'
 
@@ -6,11 +8,11 @@ describe LogParser::Validate do
 
   describe '#call' do
     context 'valid line with the main page' do
-      it { expect(subject.new('/home 184.123.665.067', 3).call).to be_truthy }
+      it { expect(subject.new('/home 184.123.665.067', 3).call) }
     end
 
     context 'valid line with the sub page' do
-      it { expect(subject.new('/help_page/1 126.318.035.038', 10).call).to be_truthy }
+      it { expect(subject.new('/help_page/1 126.318.035.038', 10).call) }
     end
 
     context 'invalid line' do

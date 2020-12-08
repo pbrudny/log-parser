@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'lib/display'
 
 report = LogParser::Display.new(ARGV[0])
